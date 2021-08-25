@@ -1,6 +1,6 @@
 
 /*
- *  Author:             ms@beronet.com / hi@mily.dev
+ *  Author:             ms@beronet.com
  *  Date of Change:     25.08.2021
  *  Implements the BorrowConditions
  */
@@ -9,16 +9,17 @@ package oszimt;
 
 public class BorrowCondition {
 
-    private static int borrow_time;
-    private static float expiry_fee;
-    private static int max_fee;
-    private static int max_renewal;
+    private static int      borrow_time;
+    private static float    expiry_fee;
+    private static int      max_fee;
+    private static int      max_renewal;
 
     static {
-        borrow_time = 4;
-        expiry_fee = 5.0f;
-        max_fee = 10;
-        max_renewal = 10;
+        //example values
+        borrow_time =   4;
+        expiry_fee =    5.0f;
+        max_fee =       10;
+        max_renewal =   10;
     }
 
     public static int getBorrow_time() {

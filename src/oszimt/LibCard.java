@@ -1,5 +1,5 @@
 /*
- *  Author:             ms@beronet.com / hi@mily.dev
+ *  Author:             ms@beronet.com
  *  Date of Change:     25.08.2021
  *  LibCard implements functionality for the libary Card
  */
