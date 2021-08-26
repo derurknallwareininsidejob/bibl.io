@@ -10,14 +10,14 @@ package oszimt;
 public class BorrowCondition {
 
     private static int      borrow_time;
-    private static float    expiry_fee;
+    private static int      expiry_fee;
     private static int      max_fee;
     private static int      max_renewal;
 
     static {
         //example values
         borrow_time =   4;
-        expiry_fee =    5.0f;
+        expiry_fee =    5;
         max_fee =       10;
         max_renewal =   10;
     }
@@ -30,11 +30,11 @@ public class BorrowCondition {
         BorrowCondition.borrow_time = borrow_time;
     }
 
-    public static float getExpiry_fee() {
+    public static int getExpiry_fee() {
         return expiry_fee;
     }
 
-    public static void setExpiry_fee(float expiry_fee) {
+    public static void setExpiry_fee(int expiry_fee) {
         BorrowCondition.expiry_fee = expiry_fee;
     }
 
