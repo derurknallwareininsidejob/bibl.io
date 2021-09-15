@@ -1,0 +1,12 @@
+function reserve( reserver: LibUser) 
+
+	if 		reserver == this.user  
+	then 	return "Error, user already borrows the book"
+
+	if 		this.reserveUser != null
+	then	return "Error, book is already reserved"
+
+	if 		this.reserveUser = reserver
+	then	return "Success, book is now reserved for user"
+
+	
