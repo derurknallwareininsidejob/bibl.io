@@ -1,6 +1,7 @@
 package oszimt;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Book {
 
@@ -8,16 +9,15 @@ public class Book {
     private String          author;
     private String          title;
     private LocalDate       returnDate;
-    private BorrowCondition status;
     private LibUser         currentUserId;
     private LibUser         reservedUserId;
 
-    public Book(int id, String author, String title, LocalDate returnDate, BorrowCondition status, LibUser currentUserId, LibUser reservedUserId) {
+    public Book (int id, String author, String title, LocalDate returnDate, BorrowCondition borrowCon, LibUser currentUserId, LibUser reservedUserId) {
+        // number range
         this.id = (int)(Math.random()*((999999-100000)+1)) +1;
         this.author = author;
         this.title = title;
         this.returnDate = returnDate;
-        this.status = status;
         this.currentUserId = currentUserId;
         this.reservedUserId = reservedUserId;
     }
@@ -54,14 +54,6 @@ public class Book {
         this.returnDate = returnDate;
     }
 
-    public BorrowCondition getStatus() {
-        return status;
-    }
-
-    public void setStatus(BorrowCondition status) {
-        this.status = status;
-    }
-
     public LibUser getCurrentUserId() {
         return currentUserId;
     }
@@ -82,11 +74,48 @@ public class Book {
 
     }
 
-    public void returnBook () {
+    public long returnBook () {
+        long days; //init days
+        long calcFee; //init calcfee
 
+        LocalDate now = LocalDate.now(); //init localdate, get current time
+
+
+        //check if returned in time
+        if ( this.returnDate.isAfter(now) ) {
+            //not returned in time
+
+            days = this.returnDate.until(now, ChronoUnit.DAYS); //late by (days)
+
+            //calc and set expiry fee
+            calcFee = BorrowCondition.getExpiry_fee() * (days/7); //per week
+            this.currentUserId.setFeeState( (int) (currentUserId.getFeeState() + calcFee));
+
+            if ( this.currentUserId.getFeeState() > BorrowCondition.getMax_fee() ) {
+                //unvalidate libCard of user
+                this.currentUserId.setCardValid(false);
+            }
+
+        } else {
+            //returned in time
+            this.returnDate = null;
+            this.currentUserId = null;
+            days = 0;
+        }
+
+        if (this.reservedUserId != null) {
+            this.borrow(this.reservedUserId, now);
+        }
+
+        return days;
     }
 
-    public void reserve () {
-
+    public void reserve (LibUser reserver) {
+        if (this.currentUserId != this.reservedUserId && this.reservedUserId != null) {
+            this.reservedUserId = reserver;
+            System.out.print("Reservation successful!");
+        } else {
+            System.out.print("Reservation not successful!");
+        }
     }
 }

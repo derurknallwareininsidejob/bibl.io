@@ -53,4 +53,6 @@ public class LibUser {
     public void setCard(LibCard card) {
         this.card = card;
     }
+
+    public void setCardValid(boolean state) { this.card.setValid(state); }
 }
